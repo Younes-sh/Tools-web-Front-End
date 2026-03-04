@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
   },
   // بهینه‌سازی برای دیپلوی روی Vercel
-  swcMinify: true,
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
