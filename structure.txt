@@ -1,0 +1,79 @@
+src/
+├── components/
+|   |
+|   ├── ui
+│   │   ├── Button.tsx
+│   │   └── Input.tsx
+│   ├── common/           # کامپوننت‌های مشترک
+│   │   ├── Header.tsx
+│   │   ├── Footer.tsx
+│   │   ├── Layout.tsx
+│   │   └── LoadingSpinner.tsx
+│   ├── auth/             # کامپوننت‌های احراز هویت
+│   │   ├── LoginForm.tsx
+│   │   ├── RegisterForm.tsx
+│   │   ├── ForgotPasswordForm.tsx
+│   │   ├── ResetPasswordForm.tsx
+│   │   └── ChangePasswordForm.tsx
+│   ├── account/          # کامپوننت‌های حساب کاربری
+│   │   ├── ProfileInfo.tsx
+│   │   ├── SubscriptionInfo.tsx
+│   │   ├── UsageStats.tsx
+│   │   └── ImageHistory.tsx
+│   │
+│   └── Upscaler.tsx
+│
+├── app/
+│   ├── (auth)/           # گروه صفحات احراز هویت
+│   │   ├── layout.tsx    # ✅ Layout مخصوص صفحات auth
+│   │   │   
+│   │   ├── login/
+│   │   │   └── page.tsx
+│   │   ├── register/
+│   │   │   └── page.tsx
+│   │   ├── forgot-password/
+│   │   │   └── page.tsx
+│   │   └── reset-password/
+│   │       └── page.tsx
+│   ├── (account)/        # گروه صفحات حساب کاربری
+│   │   │   └── layout.tsx          # ✅ Layout مخصوص pages حساب کاربری
+│   │   │
+│   │   └── account/
+│   │       ├── page.tsx
+│   │       └── settings/
+│   │           └── page.tsx
+│   ├── (tools)/          # گروه ابزارها (برای آینده)
+│   │    ├── layout.tsx    # ✅ Layout مخصوص ابزارها
+│   │    ├── upscale/
+│   │    │   └── page.tsx
+│   │    ├── pdf-merge/
+│   │    │   └── page.tsx
+│   │    └── ...
+│   │
+│   └── (marketing)/            # گروه صفحات بازاریابی
+│        ├── layout.tsx         # ✅ Layout مخصوص صفحات عمومی
+│        ├── page.tsx           # صفحه اصلی
+│        ├── pricing/
+│        │   └── page.tsx
+│        ├── gallery/
+│        │   └── page.tsx
+│        └── contact/
+│            └── page.tsx
+│  
+├── hooks/                 # هوک‌های سفارشی
+│   ├── useAuth.ts
+│   ├── useUser.ts
+│   └── useSubscription.ts
+├── contexts/              # Context providers
+│   ├── AuthContext.tsx
+│   ├── ThemeContext.tsx
+│   └── LanguageContext.js
+│
+├── lib/                   # توابع کمکی
+│   ├── api.ts
+│   ├── validators.ts
+│   └── cloudinarry.ts
+│
+└── types/                 # TypeScript types
+    ├── index.ts
+    └── next-auth.d.ts
