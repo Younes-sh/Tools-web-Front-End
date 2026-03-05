@@ -65,10 +65,10 @@ export default function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswo
     setLoading(true);
 
     try {
-      await authApi.changePassword({
-        currentPassword: formData.currentPassword,
-        newPassword: formData.newPassword
-      });
+      await authApi.changePassword(
+        formData.currentPassword,
+        formData.newPassword
+      );
       setSuccess(true);
       setTimeout(() => {
         if (onSuccess) onSuccess();
@@ -110,6 +110,7 @@ export default function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswo
                 name="currentPassword"
                 value={formData.currentPassword}
                 onChange={handleChange}
+                  placeholder="Enter your current password"
                 className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
               />
@@ -135,6 +136,7 @@ export default function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswo
                 name="newPassword"
                 value={formData.newPassword}
                 onChange={handleChange}
+                  placeholder="Enter your new password"
                 className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
               />
@@ -176,6 +178,7 @@ export default function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswo
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
+                  placeholder="Confirm your new password"
                 className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
               />
