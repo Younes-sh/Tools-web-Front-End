@@ -2,6 +2,20 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import axios from "axios";
+import { JWT } from "next-auth/jwt";
+import { Session } from "next-auth";
+
+declare module "next-auth" {
+  interface Session {
+    backendToken?: string;
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    backendToken?: string;
+  }
+}
 
 const handler = NextAuth({
   providers: [
