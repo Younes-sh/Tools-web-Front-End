@@ -2,22 +2,22 @@ import Link from 'next/link';
 
 const footerLinks = {
   Product: [
-    { name: 'Features', href: '/features' },
-    { name: 'Pricing', href: '/pricing' },
-    { name: 'Gallery', href: '/gallery' },
-    { name: 'API Docs', href: '/docs' },
+    { name: 'Features', href: '/features', external: false },
+    { name: 'Pricing', href: '/pricing', external: false },
+    { name: 'Gallery', href: '/gallery', external: false },
+    { name: 'API Docs', href: '/docs', external: false },
   ],
   Company: [
-    { name: 'About', href: '/about' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Careers', href: '/careers' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'About', href: '/about', external: false },
+    { name: 'Blog', href: '/blog', external: false },
+    { name: 'Careers', href: '/careers', external: false },
+    { name: 'Contact', href: '/contact', external: false },
   ],
   Support: [
-    { name: 'Help Center', href: '/help' },
-    { name: 'FAQ', href: '/faq' },
-    { name: 'Privacy', href: '/privacy' },
-    { name: 'Terms', href: '/terms' },
+    { name: 'Help Center', href: '/help', external: false },
+    { name: 'FAQ', href: '/faq', external: false },
+    { name: 'Privacy', href: '/privacy', external: false },
+    { name: 'Terms', href: '/terms', external: false },
   ],
   Social: [
     { name: 'Instagram', href: 'https://instagram.com', external: true },

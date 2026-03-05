@@ -3,6 +3,7 @@ import './globals.css'
 import Header from '../components/common/Header'
 import Footer from '../components/common/Footer'
 import NextAuthProvider from './providers/NextAuthProvider'
+import { AuthProvider } from '../contexts/AuthContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,11 +17,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={inter.className}>
         <NextAuthProvider>
-          <Header />
-          <main className="min-h-screen">
-            {children}
-          </main>
-          <Footer />
+          <AuthProvider>  {/* ✅ AuthProvider داخل NextAuthProvider */}
+            <Header />
+            <main className="min-h-screen">
+              {children}
+            </main>
+            <Footer />
+          </AuthProvider>
         </NextAuthProvider>
       </body>
     </html>

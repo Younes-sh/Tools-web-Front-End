@@ -19,10 +19,14 @@ interface UpscalerProps {
 }
 
 export default function Upscaler({ user, onUpscaleComplete }: UpscalerProps) {
+  interface UpscaleResult {
+    upscaledUrl: string;
+  }
+
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<unknown>(null);
+  const [result, setResult] = useState<UpscaleResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [upscaleFactor, setUpscaleFactor] = useState<number>(4);
   const [enhancementType, setEnhancementType] = useState<string>('standard');
@@ -157,6 +161,7 @@ export default function Upscaler({ user, onUpscaleComplete }: UpscalerProps) {
               <select
                 value={enhancementType}
                 onChange={(e) => setEnhancementType(e.target.value)}
+                aria-label="Enhancement type"
                 className="px-4 py-2 rounded-lg border border-gray-300 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="standard">Standard</option>

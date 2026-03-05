@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { 
   PhotoIcon, 
   DocumentIcon,
-  ArrowRightOnRectangleIcon,
+  ArrowRightStartOnRectangleIcon,
   UserCircleIcon
 } from '@heroicons/react/24/outline';
 
@@ -102,7 +102,7 @@ export default function ToolsLayout({
                     }}
                     className="flex items-center gap-2 text-gray-600 hover:text-red-600"
                   >
-                    <ArrowRightOnRectangleIcon className="w-5 h-5" />
+                    <ArrowRightStartOnRectangleIcon className="w-5 h-5" />
                     <span className="text-sm hidden md:inline">Logout</span>
                   </button>
                 </>

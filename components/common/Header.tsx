@@ -1,7 +1,6 @@
 'use client';
 
-import { useSession, signOut } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ToolsSubmenu from './ToolsSubmenu';
@@ -11,53 +10,12 @@ import {
   CurrencyDollarIcon,
   EnvelopeIcon,
   UserCircleIcon,
-  ArrowRightOnRectangleIcon
+  ArrowRightStartOnRectangleIcon
 } from '@heroicons/react/24/outline';
-import { Session } from 'next-auth';
-
-interface User {
-  name?: string | null;
-  email?: string | null;
-  image?: string | null;
-}
-
-interface ExtendedSession extends Session {
-  backendToken?: string;
-}
 
 export default function Header() {
   const pathname = usePathname();
-  const { data: session, status } = useSession();
-  const [user, setUser] = useState<User | null>(null);
-  const loading = status === 'loading';
-
-  useEffect(() => {
-    // اولویت با session NextAuth
-    if (session?.user) {
-      setUser(session.user);
-      // ذخیره توکن بک‌اند در localStorage
-      if ((session as ExtendedSession)?.backendToken) {
-        localStorage.setItem('token', (session as ExtendedSession).backendToken!);
-        localStorage.setItem('user', JSON.stringify(session.user));
-      }
-    } else {
-      // اگر session نبود، از localStorage بخوان
-      try {
-        const userStr = localStorage.getItem('user');
-        if (userStr && userStr !== 'undefined') {
-          setUser(JSON.parse(userStr));
-        }
-      } catch (error) {
-        console.error('Error parsing user:', error);
-      }
-    }
-  }, [session]);
-
-  const handleLogout = async () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    await signOut({ callbackUrl: '/' });
-  };
+  const { user, loading, logout } = useAuth();
 
   const navItems = [
     { name: 'Home', href: '/', icon: HomeIcon },
@@ -115,13 +73,13 @@ export default function Header() {
                   className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
                 >
                   <UserCircleIcon className="w-5 h-5" />
-                  <span className="text-sm hidden md:inline">{user.name || 'Account'}</span>
+                  <span className="text-sm hidden md:inline">{user.name}</span>
                 </Link>
                 <button
-                  onClick={handleLogout}
+                  onClick={logout}
                   className="flex items-center gap-2 text-gray-600 hover:text-red-600"
                 >
-                  <ArrowRightOnRectangleIcon className="w-5 h-5" />
+                  <ArrowRightStartOnRectangleIcon className="w-5 h-5" />
                   <span className="text-sm hidden md:inline">Logout</span>
                 </button>
               </div>

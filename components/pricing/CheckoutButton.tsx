@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
-import { api } from '../../lib/api';
+import api from '../../lib/api';
 
 // بارگذاری Stripe با کلید عمومی
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
@@ -29,10 +29,7 @@ export default function CheckoutButton({ priceId, planType, buttonText, classNam
 
       if (response.data.success) {
         // هدایت به صفحه پرداخت Stripe
-        const stripe = await stripePromise;
-        await stripe?.redirectToCheckout({
-          sessionId: response.data.data.sessionId
-        });
+        window.location.href = response.data.data.url;
       }
     } catch (error) {
       console.error('Checkout error:', error);
