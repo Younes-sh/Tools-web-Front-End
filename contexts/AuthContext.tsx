@@ -76,7 +76,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                         email: session.user.email!,
                         name: session.user.name!,
                         provider: 'google', // یا github
-                        providerId: session.user.id
+                        providerId: session.user.email!
                     });
 
                     if (response.success) {
