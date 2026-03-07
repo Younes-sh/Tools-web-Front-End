@@ -1,4 +1,5 @@
 // app/(auth)/verify-email/page.tsx
+export const dynamic = 'force-dynamic';
 'use client';
 
 import { Suspense } from 'react';
