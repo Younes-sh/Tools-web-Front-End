@@ -45,22 +45,23 @@ const toolCategories: ToolCategory[] = [
       },
       { 
         name: 'Image Compressor', 
-        href: '/image-compress', 
+        href: '/image-compressor', 
         icon: ArrowPathIcon,
         description: 'Reduce image file size',
         isNew: true
       },
       { 
         name: 'Image Converter', 
-        href: '/image-convert', 
+        href: '/imageConverter', 
         icon: PhotoIcon,
         description: 'Convert between formats'
       },
       { 
         name: 'Background Remover', 
-        href: '/remove-bg', 
-        icon: CpuChipIcon,
-        description: 'Remove image backgrounds'
+        href: '/background-remover', 
+        icon: SparklesIcon,
+        description: 'Remove image backgrounds with AI',
+        isNew: true  // اگر می‌خواید برچسب New داشته باشه
       },
     ]
   },
@@ -138,12 +139,12 @@ export default function ToolsSubmenu() {
   );
 
   return (
-    <div className="relative">
+    <div className="relative bg-">
       {/* دکمه منو */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         onMouseEnter={() => setIsOpen(true)}
-        className={`flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+        className={`flex items-center gap-1 px-4 py-2 bg-blue-500  text-white rounded-lg text-sm font-medium transition-colors ${
           isActive
             ? 'text-blue-600 bg-blue-50'
             : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
@@ -156,7 +157,7 @@ export default function ToolsSubmenu() {
 
       {/* Submenu */}
       {isOpen && (
-        <div className="">
+        <div className="bg-red-500 w-full absolute left-0 top-full mt-2 ">
           {/* Overlay برای بستن منو با کلیک بیرون */}
           <div
             className="fixed inset-0 z-40 "
@@ -166,16 +167,16 @@ export default function ToolsSubmenu() {
           {/* منوی کشویی */}
           <div
             onMouseLeave={() => setIsOpen(false)}
-            className="absolute left-0 top-full mt-2 w-[800px] bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 overflow-hidden"
+            className="absolute left-0 top-full  mt-2 w-[800px] bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 overflow-hidden"
           >
             <div className="flex divide-x divide-gray-100 ">
               {/* دسته‌بندی‌ها - سمت چپ */}
-              <div className="w-48 bg-gray-50 p-3 ">
+              <div className="w-48 bg-gray-50 p-3">
                 {toolCategories.map((category, index) => (
                   <button
                     key={index}
                     onMouseEnter={() => setActiveCategory(index)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors ${
+                    className={`w-full flex items-center  gap-3 px-4 py-3 rounded-lg text-left transition-colors ${
                       activeCategory === index
                         ? 'bg-blue-600 text-white'
                         : 'text-gray-700 hover:bg-gray-200'
