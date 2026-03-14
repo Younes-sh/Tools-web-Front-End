@@ -101,25 +101,31 @@ export default function BackgroundRemover() {
 
 
 const removeBackgroundWithAPI = async () => {
+  // ✅ بررسی می‌کنیم که فایل وجود داشته باشد
+  if (!file) {
+    setError('No file selected');
+    return;
+  }
+
+  setLoading(true);
+  setError(null);
+
   try {
+    // حالا TypeScript می‌داند که file از نوع File است و null نیست
     const result = await backgroundApi.removeBackground(
-      file,
+      file, // دیگر خطا نمی‌دهد
       backgroundColor,
       outputFormat
     );
     
-    // result از نوع blob هست
     const url = URL.createObjectURL(result);
     setProcessedImage(url);
     setProcessedFile(new File([result], `no-bg-${file.name}`, { type: result.type }));
   } catch (error: any) {
-    if (error.response?.status === 401) {
-      setError('Please login first');
-      // هدایت به صفحه login
-      setTimeout(() => router.push('/login'), 2000);
-    } else {
-      setError(error.message || 'Error removing background');
-    }
+    console.error('Background removal error:', error);
+    setError(error.message || 'Error removing background');
+  } finally {
+    setLoading(false);
   }
 };
 
