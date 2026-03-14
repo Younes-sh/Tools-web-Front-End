@@ -44,34 +44,34 @@ export default function ImageCompressor() {
   const imgRef = useRef<HTMLImageElement>(null);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    setError(null);
-    const selectedFile = acceptedFiles[0];
-    
-    // اعتبارسنجی
-    if (!selectedFile.type.startsWith('image/')) {
-      setError('Please select a valid image file');
-      return;
-    }
-    
-    if (selectedFile.size > MAX_FILE_SIZE) {
-      setError('Image size should be less than 50MB');
-      return;
-    }
+  setError(null);
+  const selectedFile = acceptedFiles[0];
+  
+  // اعتبارسنجی
+  if (!selectedFile.type.startsWith('image/')) {
+    setError('Please select a valid image file');
+    return;
+  }
+  
+  if (selectedFile.size > MAX_FILE_SIZE) {
+    setError('Image size should be less than 50MB');
+    return;
+  }
 
-    setFile(selectedFile);
-    setOriginalSize(selectedFile.size);
-    setPreview(URL.createObjectURL(selectedFile));
-    setCompressedImage(null);
-    setCompressedFile(null);
+  setFile(selectedFile);
+  setOriginalSize(selectedFile.size);
+  setPreview(URL.createObjectURL(selectedFile));
+  setCompressedImage(null);
+  setCompressedFile(null);
 
-    // دریافت ابعاد اصلی تصویر
-    const img = new Image();
-    img.onload = () => {
-      setOriginalDimensions({ width: img.width, height: img.height });
-      URL.revokeObjectURL(img.src);
-    };
-    img.src = URL.createObjectURL(selectedFile);
-  }, []);
+  // دریافت ابعاد اصلی تصویر
+  const img = new window.Image();  // ✅ اصلاح شده
+  img.onload = () => {
+    setOriginalDimensions({ width: img.width, height: img.height });
+    URL.revokeObjectURL(img.src);
+  };
+  img.src = URL.createObjectURL(selectedFile);
+}, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
