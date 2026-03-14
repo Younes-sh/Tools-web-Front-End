@@ -117,69 +117,62 @@ export default function PDFMerger() {
   };
 
   const mergePDFs = async () => {
-    if (files.length < 2) {
-      setError('Please select at least 2 PDF files');
-      return;
-    }
+  if (files.length < 2) {
+    setError('Please select at least 2 PDF files');
+    return;
+  }
 
-    setLoading(true);
-    setError(null);
+  setLoading(true);
+  setError(null);
 
-    try {
-      console.log('📚 Merging PDFs...', files.length);
+  try {
+    console.log('📚 Merging PDFs...', files.length);
+    
+    const mergedPdf = await PDFDocument.create();
+    let pageCount = 0;
+
+    for (let i = 0; i < files.length; i++) {
+      const pdfFile = files[i];
+      console.log(`Processing file ${i + 1}/${files.length}: ${pdfFile.name}`);
       
-      // ایجاد یک PDF جدید
-      const mergedPdf = await PDFDocument.create();
-      let pageCount = 0;
-
-      // پردازش هر فایل به ترتیب
-      for (let i = 0; i < files.length; i++) {
-        const pdfFile = files[i];
-        console.log(`Processing file ${i + 1}/${files.length}: ${pdfFile.name}`);
+      try {
+        const fileBytes = await pdfFile.file.arrayBuffer();
+        const pdf = await PDFDocument.load(fileBytes);
+        const filePageCount = pdf.getPageCount();
         
-        try {
-          // خواندن فایل PDF
-          const fileBytes = await pdfFile.file.arrayBuffer();
-          
-          // بارگذاری PDF
-          const pdf = await PDFDocument.load(fileBytes);
-          const filePageCount = pdf.getPageCount();
-          
-          // کپی کردن صفحات از PDF اصلی به PDF جدید
-          const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-          copiedPages.forEach((page) => {
-            mergedPdf.addPage(page);
-          });
-          
-          pageCount += filePageCount;
-          console.log(`✅ Added ${filePageCount} pages from ${pdfFile.name}`);
-        } catch (fileError) {
-          console.error(`Error processing ${pdfFile.name}:`, fileError);
-          throw new Error(`Invalid PDF file: ${pdfFile.name}`);
-        }
+        const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+        copiedPages.forEach((page) => {
+          mergedPdf.addPage(page);
+        });
+        
+        pageCount += filePageCount;
+        console.log(`✅ Added ${filePageCount} pages from ${pdfFile.name}`);
+      } catch (fileError) {
+        console.error(`Error processing ${pdfFile.name}:`, fileError);
+        throw new Error(`Invalid PDF file: ${pdfFile.name}`);
       }
-
-      console.log(`📄 Total pages in merged PDF: ${pageCount}`);
-      setTotalPages(pageCount);
-      
-      // ذخیره PDF نهایی
-      const pdfBytes = await mergedPdf.save();
-      
-      // ایجاد Blob برای دانلود
-      const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-      
-      setMergedFile(blob);
-      setMergedFileName(`merged-${Date.now()}.pdf`);
-      setSuccess(true);
-
-    } catch (err) {
-      console.error('❌ Merge error:', err);
-      setError(err instanceof Error ? err.message : 'Error merging PDFs');
-    } finally {
-      setLoading(false);
     }
-  };
 
+    console.log(`📄 Total pages in merged PDF: ${pageCount}`);
+    setTotalPages(pageCount);
+    
+    const pdfBytes = await mergedPdf.save();
+    
+    // ✅ استفاده از Buffer به جای Blob (برای سازگاری با Node.js)
+    const buffer = Buffer.from(pdfBytes);
+    const blob = new Blob([buffer], { type: 'application/pdf' });
+    
+    setMergedFile(blob);
+    setMergedFileName(`merged-${Date.now()}.pdf`);
+    setSuccess(true);
+
+  } catch (err) {
+    console.error('❌ Merge error:', err);
+    setError(err instanceof Error ? err.message : 'Error merging PDFs');
+  } finally {
+    setLoading(false);
+  }
+};
   const handleDownload = () => {
     if (!mergedFile) return;
 
