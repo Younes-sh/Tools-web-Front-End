@@ -3,13 +3,13 @@
 import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { PDFDocument } from 'pdf-lib';
+import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
+import { DocumentTextIcon } from '@heroicons/react/24/outline';
+import { ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 import { 
-  DocumentTextIcon,
-  ArrowUpTrayIcon,
   XMarkIcon,
   ArrowDownTrayIcon,
   ArrowPathIcon,
-  DocumentDuplicateIcon,
   CheckCircleIcon,
   XCircleIcon,
   ArrowsUpDownIcon
