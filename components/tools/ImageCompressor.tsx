@@ -4,7 +4,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { useDropzone } from 'react-dropzone';
 import { 
-  ArrowUpTrayIcon, 
+  // ArrowUpTrayIcon, 
   XMarkIcon, 
   ArrowDownTrayIcon,
   ArrowPathIcon,
