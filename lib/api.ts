@@ -168,4 +168,30 @@ export const subscriptionApi = {
   },
 };
 
+
+// ========== Remove background API ==========
+export const backgroundApi = {
+  removeBackground: async (
+    file: File,
+    backgroundColor?: string,
+    outputFormat: string = 'png'
+  ) => {
+    const formData = new FormData();
+    formData.append('image', file);
+    if (backgroundColor && backgroundColor !== 'transparent') {
+      formData.append('backgroundColor', backgroundColor);
+    }
+    formData.append('outputFormat', outputFormat);
+
+    const response = await api.post('/background/remove', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      responseType: 'blob',
+    });
+
+    return response.data;
+  },
+};
+
 export default api;
