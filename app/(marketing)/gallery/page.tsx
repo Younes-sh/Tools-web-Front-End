@@ -175,7 +175,7 @@ export default function GalleryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pt-24 pb-16">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pt-24 pb-16 text-gray-900">
       
       {/* Header */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
@@ -420,10 +420,10 @@ export default function GalleryPage() {
                 >
                   {showComparison ? 'Side by Side' : 'Compare'}
                 </button>
-                <button className="px-4 py-2 bg-white/90 text-gray-700 rounded-lg font-medium hover:bg-white transition-colors">
+                <button title="Share image" className="px-4 py-2 bg-white/90 text-gray-700 rounded-lg font-medium hover:bg-white transition-colors">
                   <ShareIcon className="w-5 h-5" />
                 </button>
-                <button className="px-4 py-2 bg-white/90 text-gray-700 rounded-lg font-medium hover:bg-white transition-colors">
+                <button title="Download image" className="px-4 py-2 bg-white/90 text-gray-700 rounded-lg font-medium hover:bg-white transition-colors">
                   <ArrowDownTrayIcon className="w-5 h-5" />
                 </button>
               </div>
