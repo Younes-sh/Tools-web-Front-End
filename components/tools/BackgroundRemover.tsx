@@ -100,34 +100,34 @@ export default function BackgroundRemover() {
   // در BackgroundRemover.tsx
 
 
-const removeBackgroundWithAPI = async () => {
-  // ✅ بررسی می‌کنیم که فایل وجود داشته باشد
-  if (!file) {
-    setError('No file selected');
-    return;
-  }
+  const removeBackgroundWithAPI = async () => {
+    if (!file) {
+      setError('No file selected');
+      return;
+    }
 
-  setLoading(true);
-  setError(null);
+     // ذخیره در یک متغیر جدید که TypeScript می‌فهمد null نیست
+     const selectedFile = file;
 
-  try {
-    // حالا TypeScript می‌داند که file از نوع File است و null نیست
-    const result = await backgroundApi.removeBackground(
-      file, // دیگر خطا نمی‌دهد
-      backgroundColor,
-      outputFormat
-    );
-    
-    const url = URL.createObjectURL(result);
-    setProcessedImage(url);
-    setProcessedFile(new File([result], `no-bg-${file.name}`, { type: result.type }));
-  } catch (error: any) {
-    console.error('Background removal error:', error);
-    setError(error.message || 'Error removing background');
-  } finally {
-    setLoading(false);
-  }
-};
+     setLoading(true);
+     setError(null);
+
+    try {
+      const result = await backgroundApi.removeBackground(
+        selectedFile,  // ✅ این دیگه خطا نمی‌دهد
+        backgroundColor,
+        outputFormat
+      );
+      const url = URL.createObjectURL(result);
+      setProcessedImage(url);
+      setProcessedFile(new File([result], `no-bg-${selectedFile.name}`, { type: result.type }));
+    } catch (error: any) {
+      console.error('Background removal error:', error);
+      setError(error.message || 'Error removing background');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const simulateBackgroundRemoval = async () => {
     // شبیه‌سازی حذف پس‌زمینه برای تست
