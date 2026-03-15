@@ -51,6 +51,12 @@ export default function PDFSplitter() {
   const [selectedResultIndex, setSelectedResultIndex] = useState<number>(-1);
   const [zipBlob, setZipBlob] = useState<Blob | null>(null);
 
+  // ✅ تابع کمکی برای ساخت Blob
+  const createPdfBlob = (pdfBytes: Uint8Array): Blob => {
+    const uint8Array = new Uint8Array(pdfBytes);
+    return new Blob([uint8Array], { type: 'application/pdf' });
+  };
+
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     setError(null);
     const selectedFile = acceptedFiles[0];
@@ -173,7 +179,8 @@ export default function PDFSplitter() {
         pages.forEach(page => newPdf.addPage(page));
         
         const pdfBytes = await newPdf.save();
-        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        // ✅ استفاده از تابع کمکی
+        const blob = createPdfBlob(pdfBytes);
         
         results.push({
           blob,
@@ -193,7 +200,8 @@ export default function PDFSplitter() {
           pages.forEach(page => newPdf.addPage(page));
           
           const pdfBytes = await newPdf.save();
-          const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+          // ✅ استفاده از تابع کمکی
+          const blob = createPdfBlob(pdfBytes);
           
           results.push({
             blob,
@@ -233,7 +241,8 @@ export default function PDFSplitter() {
             copiedPages.forEach(page => newPdf.addPage(page));
             
             const pdfBytes = await newPdf.save();
-            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            // ✅ استفاده از تابع کمکی
+            const blob = createPdfBlob(pdfBytes);
             
             const range = group.length === 1 
               ? `${group[0]}` 
@@ -282,7 +291,6 @@ export default function PDFSplitter() {
     }
 
     // برای چند فایل، همه رو جداگانه دانلود می‌کنیم
-    // (در نسخه پیشرفته‌تر می‌تونید از JSZip استفاده کنید)
     for (const result of splitResults) {
       downloadSingleFile(result);
     }
@@ -382,7 +390,7 @@ export default function PDFSplitter() {
             {!loading && totalPages > 0 && (
               <>
                 {/* Split Options */}
-                <div className="mb-6 space-y-4">
+                <div className="mb-6 space-y-4 p-4 bg-gray-50 rounded-xl text-gray-500">
                   <div className="flex gap-4">
                     <label className="flex items-center gap-2">
                       <input
@@ -419,7 +427,7 @@ export default function PDFSplitter() {
                   {splitMode === 'range' && (
                     <div className="flex items-center gap-4 bg-gray-50 p-4 rounded-xl">
                       <span className="text-sm text-gray-700">Pages:</span>
-                      <div className="flex items-center gap-2 text-gray-500">
+                      <div className="flex items-center gap-2">
                         <input
                           type="number"
                           min="1"
