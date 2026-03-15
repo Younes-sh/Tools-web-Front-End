@@ -17,7 +17,7 @@ export default function AuthLayout({
       </div>
 
       {/* محتوای صفحات auth - اضافه کردن flex برای مرکزیت */}
-      <div className="container mx-auto px-4 flex items-center justify-center min-h-[calc(100vh-200px)]">
+      <div className="container  mx-auto px-4 flex items-center justify-center min-h-[calc(100vh-200px)]">
         {children}
       </div>
 
