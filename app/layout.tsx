@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <NextAuthProvider>
           <AuthProvider>  {/* ✅ AuthProvider داخل NextAuthProvider */}
             <Header />
-            <main className="min-h-screen">
+            <main className="min-h-screen mt-7">
               {children}
             </main>
             <Footer />
